@@ -1,0 +1,77 @@
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Assignment 3
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+To deploy this block driver for your pendrive, add your device-specific VID and PID to the "device list " in file blk_driver.h and pen_table structure in blk_driver.c
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+To avoid removing uas and usb_storage module every time when our module is inserted , I have black listed both above mentioned modules by following below mentioned steps :
+
+1) Go to /etc/modprobe.d
+2)Open blacklist.conf (Open as root user)
+3) Add These two lines in  blacklist.conf
+   
+   blacklist uas
+   blacklist usb_storage
+
+             or
+
+Can also execute below command everytime before inserting USB device
+  
+    $ sudo modprobe -rf uas usb_storage 
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Compile & Insert Kernel Module:
+
+$ make all
+$ sudo insmod ./blk_driver.ko
+
+Mount USB Drive
+
+First create empty directory (Mount Point) at desired path. Here in /media Mount Point (usb_drive) is created. 
+
+$sudo mount -t vfat /dev/USB_DRIVE1 /media/usb_drive/
+
+
+List Files and Directories in mounted drive
+
+$ ls /media/usb_drive
+
+
+Create Directory in mounted drive
+
+$ cd /media/usb_drive
+$ sudo mkdir <directory_name>
+
+
+Open File from mounted drive
+
+$ sudo vim <file_name>
+
+
+Check Kernel Logs
+
+$ dmesg
+
+
+Unmount USB Drive
+
+$ sudo umount /media/usb_drive
+
+
+Remove Kernel Module
+
+$ sudo rmmod blk_driver.ko 
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+References :
+
+
+1) https://linux-kernel-labs.github.io/refs/heads/master/labs/block_device_drivers.html
+2) https://github.com/h20140401/G547
+3) https://resources.oreilly.com/examples/9780596005900/tree/master
