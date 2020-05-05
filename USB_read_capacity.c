@@ -4,7 +4,6 @@
 #include<linux/slab.h>
 #include<linux/types.h>
 
-
 #define CRUZER_VID 0x0781
 #define CRUZER_PID 0x5151
 
